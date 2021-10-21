@@ -1,6 +1,10 @@
-const express = require('express')
+const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = 5000;
+
+app.use(cors());
+app.use(express.json());
 
 app.get('/',(req,res) =>{
     res.send("hello world")
@@ -238,6 +242,14 @@ const users = [
     }
     }
     ]
+
+app.post('/users',(req,res)=>{
+    const newUSer = req.body;
+    newUSer.id = users.length + 1;
+    users.push(newUSer);
+    res.send(newUSer);
+    console.log('hitting the post',req.body);
+})
 
 app.get('/users',(req,res) => {
     //use query parameter
